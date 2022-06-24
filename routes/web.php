@@ -37,6 +37,5 @@ Route::post('/home',function(){
     $post->post_privacy=request('post_privacy');
     $post->save();
     
-
+    return view('home');
 });
-return redirect('home');

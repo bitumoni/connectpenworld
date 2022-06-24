@@ -36,11 +36,11 @@
                     
                 
                     
-                        <input class="form-control mb-2" name="post_title" type="text" placeholder="Title" />
+                        <input class="form-control mb-2" name="post_title" type="text" placeholder="Title" required />
                         
                     
 
-                    <select class="form-select mb-2" name="post_category" aria-label="Default select example">
+                    <select class="form-select mb-2" name="post_category" >
                             <option value="0" disabled="" selected="">Select Category</option><option value="Fantasy">Fantasy</option><option value="Epic Fantasy">Epic Fantasy</option><option value="Science Fiction">Science Fiction</option><option value="Sci-fi Fantasy">Sci-fi Fantasy</option><option value="Dystopian">Dystopian</option><option value="Horror / Thriller">Horror / Thriller</option><option value="Romance">Romance</option><option value="Contemporary">Contemporary</option><option value="Historical">Historical</option>
                             <option value="Self-Help">Self-Help</option><option value="Memoir / Biography">Memoir / Biography</option><option value="Faith-based">Faith-based</option><option value="Art">Art</option><option value="History">History</option><option value="Health &amp; Wellness">Health &amp; Wellness</option><option value="Business">Business</option><option value="How-To / Guide Book">How-To / Guide Book</option>
 
@@ -65,13 +65,13 @@
                                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">
+                   <!-- <button type="submit" class="btn btn-primary">
                         {{ __('Post') }}
-                    </button>
+                    </button>-->
 
-                    <div class="small text-white-50">We care about privacy, and will never share your data.</div>
+                    <div class="small text-white-50 mb-2">We care about privacy, and will never share your data.</div>
                  <center>
-                        <button class="btn btn-success btn-lg px-4" id="button-newsletter" type="button">Post</button>
+                        <button type="submit" class="btn btn-success btn-lg px-4" >Post</button>
                         <div class="small text-white-50">------OR------</div>
                         
                         <button class="btn btn-primary btn-lg px-4" id="button-newsletter" type="button">Send to publisher</button>
