@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -89,18 +89,14 @@
                         </div>
                         <div class="row mb-3">
                             <label for="dob" class="col-md-4 col-form-label text-md-end">{{ __('DOB') }}</label>
-                        <div class="col-md-6">
+                                <div class="col-md-6">
                             <input id="dob" type="date" class="form-control @error('date') is-invalid @enderror" name="dob"  required autocomplete="dob" autofocus>
-                        </div> 
+                                </div> 
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-
-
-                        <div class="col-md-6">
+                <div class="row mb-3">
+                            <label for="gender" class="col-md-4 col-form-label text-md-end">{{ __('Gender') }}</label>
+                    <div class="col-md-6">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male">
                             <label class="form-check-label text-dark" for="inlineRadio1">Male</label>

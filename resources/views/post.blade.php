@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
-
+@section('contentpost')
 <div class="container">
     <div class="row justify-content-center">
         <aside class="bg-dark bg-gradient  p-4 p-sm-5 ">
