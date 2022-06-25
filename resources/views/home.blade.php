@@ -71,7 +71,15 @@
 
                     <div class="small text-white-50 mb-2">We care about privacy, and will never share your data.</div>
                  <center>
-                        <button type="submit" class="btn btn-success btn-lg px-4" >Post</button>
+                        <button type="submit" class="btn btn-success btn-lg px-4 mb-2" >Post</button>
+                      
+                        @if(session()->has('message'))
+                            <div class="alert alert-success mb-2">
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
+
+
                         <div class="small text-white-50">------OR------</div>
                         
                         <button class="btn btn-primary btn-lg px-4" id="button-newsletter" type="button">Send to publisher</button>
