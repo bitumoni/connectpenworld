@@ -63,7 +63,10 @@
                                 </li>
                             @endif
                         @else
-                       
+                        <div class="navbar-brand input-group">
+                            <input class="form-control" type="text" placeholder="Type to search" aria-label="Type to search" aria-describedby="button-newsletter" />
+                            <button class="btn btn-outline-dark" id="button-newsletter" type="button">Search</button>
+                        </div>
                         <a class="navbar-brand bi-chat-fill text-drak" href="/msg">Messages</a>
                         <a class="navbar-brand bi-bell-fill text-dark" href="/notifications">Notifications</a>
                         <a class="navbar-brand bi-people-fill text-dark" href="/friends">Friends</a>

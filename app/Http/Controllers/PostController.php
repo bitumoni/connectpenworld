@@ -33,22 +33,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        
-        //$posts = Post::all();
-        $posts = Post::orderBy('posts.post_id','desc')->get();
-        return view('home',['posts'=>$posts]);
-       // return  view('home',$posts->hasOne(Post::class)->latestOfMany());
+        $posts = Post::join('users','users.id' , '=','posts.post_user_id' )->orderBy('posts.post_id','desc')->get();
 
-        //$posts = Post::all();
-        //return view('home',['posts'=>$posts]);
-        //return view('home');
-
-        // $posts = Post::all();
-        // $users = User::all();
-        // return view('home',['posts'=>$posts],['users'=>$users]);
+       
+         return view('home',['posts'=>$posts]);
     }
 
-     
+  
 
 
         /**

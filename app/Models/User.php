@@ -50,4 +50,7 @@ class User extends Authenticatable
         'status' => 'string',
 
     ];
+
+   
+
 }

@@ -165,7 +165,7 @@
                 <div class="container px-5 my-5">
                     
                     <div class="row gx-5">
-                         @foreach ($posts as $item ) <!-- ($users as $user)  -->
+                         @foreach ($posts as $item )
                         <div class="col-lg-4 mb-5">
                            
                             <div class="card h-100 shadow border-0">
@@ -181,7 +181,7 @@
                                         <div class="d-flex align-items-center">
                                             <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
                                             <div class="small">
-                                                <div class="fw-bold">  name</div>
+                                                <div class="fw-bold">{{ $item->name }} </div>
                                                 <div class="text-muted">{{ $item->created_at }}&middot; <!--6 min read--></div>
                                             </div>
                                         </div>

@@ -58,7 +58,11 @@
                     @endauth
                 </div>
 
+                
+               
+
                 <header class="bg-dark py-5">
+                    @auth
                     <div class="container px-5">
                         <div class="row gx-5 align-items-center justify-content-center">
                             <div class="col-lg-8 col-xl-7 col-xxl-6">
@@ -73,6 +77,8 @@
                             </div>
                                 <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://i.guim.co.uk/img/media/cfa9d5667ecc480edae5622a8e36d51c665150aa/0_121_7123_4275/master/7123.jpg?width=1200&quality=85&auto=format&fit=max&s=d7d2d858686eaa50a439b9d71b2e092d" alt="..." />
                                 </div>
+                                
+                              @else  
                             <aside class="bg-grey bg-gradient rounded-3 p-4 p-sm-5 mt-5">
                             <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
                                 <div class="mb-4 mb-xl-0">
@@ -135,8 +141,9 @@
                         </aside>
                         </div>
                     </div>
+                    @endauth
                 </header>
-                
+               
             @endif   
             
         </div>

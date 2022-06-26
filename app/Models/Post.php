@@ -26,4 +26,6 @@ class Post extends Authenticatable
         'status' => 'string',
 
     ];
+    
+    
 }
