@@ -100,6 +100,8 @@
          
             
             @yield('content')
+            @yield('news')       
+                      
         
         </main>
     </div>

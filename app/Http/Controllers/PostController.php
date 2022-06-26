@@ -3,10 +3,11 @@
 
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 //use App\Providers\RouteServiceProvider;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegPosts;
 
 use Illuminate\Support\Facades\Validator;
@@ -32,8 +33,22 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('home');
+        
+        //$posts = Post::all();
+        $posts = Post::orderBy('posts.post_id','desc')->get();
+        return view('home',['posts'=>$posts]);
+       // return  view('home',$posts->hasOne(Post::class)->latestOfMany());
+
+        //$posts = Post::all();
+        //return view('home',['posts'=>$posts]);
+        //return view('home');
+
+        // $posts = Post::all();
+        // $users = User::all();
+        // return view('home',['posts'=>$posts],['users'=>$users]);
     }
+
+     
 
 
         /**
@@ -76,4 +91,9 @@ class PostController extends Controller
            
         ]);
     }
+    //   function show()
+    //  {
+    //      $posts = Post::all();
+    //      return view('home',['posts'=>$posts]);
+    //  }
 }

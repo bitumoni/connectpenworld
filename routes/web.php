@@ -39,3 +39,5 @@ Route::post('/home',function(){
     
     return redirect('home')->with('message', 'Post request sent successfully!');
 });
+
+Route::get('posts', [PostController::class, 'index'])->name('show');

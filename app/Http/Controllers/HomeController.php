@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User;
 
 class HomeController extends Controller
 {
@@ -23,8 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $users = User::all();
+        return view('home',['users'=>$users]);
+        //return view('home');
     }
 
-    
+   
+
 }
