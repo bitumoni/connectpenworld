@@ -1,8 +1,13 @@
 <?php
 
 use App\Models\Post;
+use App\Models\Friend;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\FriendController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +24,35 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+    
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/home', [App\Http\Controllers\PostController::class, 'index'])->name('post');
 
+// Route::controller(HomeController::class)->group(function () {
+//     Route::get('home', 'home')->name('home');
+//     Route::get('/home', function () {
+//         return view('home');
+//     });
+   
+//  // Route::get('home', 'index')->name('home');
+
+// });
+
+Route::controller(PostController::class)->group(function () {
+
+    Route::get('/home', 'showpost');
+   // Route::get('/home', 'sendpost');
+  //  Route::get('/home', 'index');
+  //  Route::get('/home', 'sendpost')->name('sendpost');
+   // Route::get('home', 'post');
+    Route::get('home', 'post')->name('post');
+   // Route::get('welcome', 'news');
+
+});
 Route::post('/home',function(){
 
     $post=new Post();
@@ -40,4 +68,57 @@ Route::post('/home',function(){
     return redirect('home')->with('message', 'Post request sent successfully!');
 });
 
-Route::get('posts', [PostController::class, 'index'])->name('show');
+
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Route::get('/home', [App\Http\Controllers\PostController::class, 'index'])->name('post');
+
+
+
+//Route::get('posts', [PostController::class, 'post'])->name('post');
+
+
+
+Route::controller(FriendController::class)->group(function () {
+  
+    // Route::get('/user/profile', 'index');
+    // Route::get('/user/{id}', 'show');
+    // Route::post('/user/profile', 'post');
+    // Route::get('/signup', 'signup');
+    // Route::post('/users', 'store');
+    // Route::get('/reg', 'reg');
+    // Route::get('/login', 'login');
+    // Route::get('/demo', 'demo');
+    // Route::get('/test', 'test');
+    // Route::get('/msg', 'msg');
+    //Route::get('/menu', 'menu');
+  //  Route::get('/friends', 'friends');
+  // Route::get('friends', 'post')->name('friends');
+    Route::get('friends', [App\Http\Controllers\FriendController::class, 'friends'])->name('friends.allfriends');
+    
+
+    Route::post('friends/unfollow/{id}', [App\Http\Controllers\FriendController::class, 'unfollow'])->name('friends.unfollow');
+
+    Route::post('/friends',function(){
+
+        $follow =new Friend();
+        $follow->friend_user_id=request('friend_user_id');
+        $follow->friend_request_id=request('friend_request_id');
+        $follow->friend_status=request('friend_status');
+        $follow->save();
+        
+        return redirect('friends')->with('follow', 'Follow request sent successfully!');
+    });
+
+  //  Route::post('friends.allfriends', 'FriendController@crteate')->name('friends.allfriends');
+ //  Route::get('friends', [App\Http\Controllers\FriendController::class, 'create'])->name('friends.allfriends');
+
+});
+
+Route::controller(MessageController::class)->group(function () {
+  
+    Route::get('/msg', 'msg');
+
+});
+

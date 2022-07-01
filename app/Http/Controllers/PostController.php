@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 //use App\Providers\RouteServiceProvider;
 use App\Models\Post;
-use App\Models\User;
+
 use Illuminate\Foundation\Auth\RegPosts;
 
 use Illuminate\Support\Facades\Validator;
@@ -31,12 +31,22 @@ class PostController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+
+
+   
+    public function showpost()
+    {
+        return view('posts.sendpost');
+    }
+
+
+
+    public function post()
     {
         $posts = Post::join('users','users.id' , '=','posts.post_user_id' )->orderBy('posts.post_id','desc')->get();
 
        
-         return view('home',['posts'=>$posts]);
+         return view('posts.post',['posts'=>$posts]);
     }
 
   
