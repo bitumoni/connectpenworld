@@ -49,9 +49,8 @@
                           </div>
                           <div class="pt-1">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                           
-                           
-                              <button class="btn btn-primary me-md-2" type="submit"> {{ $item->friend_status}}</button>
+                              
+                              <button class="btn btn-primary me-md-2 " type="submit"> {{ $item->friend_status}}</button>
                             
                               <button class="btn btn-primary" type="button">Message</button>
                             </div>
@@ -82,7 +81,7 @@
                           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                          
                          
-                            <button class="btn btn-primary me-md-2" type="submit"> Follow</button>
+                            <button class="btn btn-primary me-md-2 " type="submit">Follow</button>
                           
                             <button class="btn btn-primary" type="button">Message</button>
                           </div>

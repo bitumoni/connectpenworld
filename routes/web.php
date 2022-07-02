@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\MessageController;
 
@@ -97,6 +98,7 @@ Route::controller(FriendController::class)->group(function () {
   // Route::get('friends', 'post')->name('friends');
     Route::get('friends', [App\Http\Controllers\FriendController::class, 'friends'])->name('friends.allfriends');
     
+    
 
     Route::post('friends/unfollow/{id}', [App\Http\Controllers\FriendController::class, 'unfollow'])->name('friends.unfollow');
 
@@ -108,7 +110,7 @@ Route::controller(FriendController::class)->group(function () {
         $follow->friend_status=request('friend_status');
         $follow->save();
         
-        return redirect('friends')->with('follow', 'Follow request sent successfully!');
+        return redirect('friends')->with('follow', 'Started Following');
     });
 
   //  Route::post('friends.allfriends', 'FriendController@crteate')->name('friends.allfriends');
@@ -119,6 +121,12 @@ Route::controller(FriendController::class)->group(function () {
 Route::controller(MessageController::class)->group(function () {
   
     Route::get('/msg', 'msg');
+
+});
+
+Route::controller(UserController::class)->group(function () {
+  
+    Route::get('/profile', 'userprofile');
 
 });
 

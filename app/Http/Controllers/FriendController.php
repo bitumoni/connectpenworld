@@ -34,16 +34,16 @@ class FriendController extends Controller
 
         Friend::where('friend_id', $id)->delete();
 
-        return redirect('friends')->with('follow', 'Unfollow sent successfully!');
+        return redirect('friends')->with('follow', 'Unfollow successfully!');
 
      }
 
 
     public function friends(){
        
-        $following = Friend::rightjoin('users','users.id' , '=','friends.friend_request_id' )->where('friends.friend_user_id','=',Auth::id())->get()->except(Auth::id());
+        $following = Friend::rightjoin('users','users.id' , '=','friends.friend_request_id' )->where('friends.friend_user_id','=',Auth::id())->orderBy('friends.created_at','desc')->get()->except(Auth::id());
        
-        $data = Friend::Where('friend_user_id', Auth::id())->get('friend_request_id');
+        $data = Friend::Where('friend_user_id', Auth::id())->orderBy('friends.created_at','desc')->get('friend_request_id');
         $follow= User::whereNotIn('users.id',$data)->get()->except(Auth::id());
     
 
