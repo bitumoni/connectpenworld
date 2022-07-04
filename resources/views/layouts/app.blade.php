@@ -111,7 +111,8 @@
             @yield('posts')
             @yield('userprofile')
             @yield('allfriends') 
-            @yield('msg')     
+            @yield('msg')
+            @yield('chat')      
                       
         
         </main>

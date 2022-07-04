@@ -27,6 +27,14 @@ class UserController extends Controller
         $username=User::where('id', Auth::id())->first()->name;
         $userrole=User::where('id', Auth::id())->first()->role;
         $usergender=User::where('id', Auth::id())->first()->gender;
+        $userdob=User::where('id', Auth::id())->first()->dob;
+        $cd=Carbon::now()->format('Y-m-d');
+        $a=substr($userdob, 0, 4);
+        $b=substr($cd, 0, 4);
+        $userage= $b - $a;
+        
+
+        $userpost = Post::join('users','users.id' , '=','posts.post_user_id' )->where('posts.post_user_id','=',Auth::id())->orderBy('posts.post_id','desc')->get();
        
       // $data = Friend::select('friend_request_id','=', Auth::id())->orderBy('friends.created_at','desc')->get('friend_request_id');
       //  $follow= User::where('users.id',$data)->count('name');
@@ -35,7 +43,7 @@ class UserController extends Controller
 
       
 
-        return view('users.profile',['following'=>$following,'follow'=>$follow,'post'=>$post,'username'=>$username,'userrole'=>$userrole,'usergender'=>$usergender]);
+        return view('users.profile',['following'=>$following,'follow'=>$follow,'post'=>$post,'username'=>$username,'userrole'=>$userrole,'usergender'=>$usergender,'userage'=>$userage,'userpost'=>$userpost]);
 
     }
 }

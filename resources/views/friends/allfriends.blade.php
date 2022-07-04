@@ -38,6 +38,7 @@
                             <input class="form-control mb-2" name="friend_status" type="hidden"  value="Following" />
 
                       <li class="p-2 border-bottom" >
+                      
                           <a href="#!" class="d-flex justify-content-between">
                           <div class="d-flex flex-row">
                               <img src="https://i1.sndcdn.com/avatars-F4ypHmyVG2ahq80Y-Fqoh0w-t500x500.jpg" alt="avatar"
@@ -50,9 +51,9 @@
                           <div class="pt-1">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                               
-                              <button class="btn btn-primary me-md-2 " type="submit"> {{ $item->friend_status}}</button>
+                              <button  class="btn btn-primary me-md-2 " type="submit"> {{ $item->friend_status}}</button>
                             
-                              <button class="btn btn-primary" type="button">Message</button>
+                              <a href="{{ route('message.select',['id'=>$item->friend_id]) }}" class="btn btn-primary" type="button">Message</a>
                             </div>
                           </div>
                           </a>
@@ -61,7 +62,7 @@
                       @endforeach
 
                       @foreach ($follow as $bb )
-                      <form method="POST" action="{{ route('friends.allfriends') }}">
+                      <form method="POST" action="{{ route('friends.follow',['name'=>$bb->name]) }}">
                           @csrf
                           <input class="form-control mb-2" name="friend_user_id" type="hidden"  value="{{ Auth::user()->id }}" />
                           <input class="form-control mb-2" name="friend_request_id" type="hidden"  value="{{ $bb->id }}" />

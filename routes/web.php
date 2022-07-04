@@ -2,8 +2,10 @@
 
 use App\Models\Post;
 use App\Models\Friend;
+use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -97,21 +99,22 @@ Route::controller(FriendController::class)->group(function () {
   //  Route::get('/friends', 'friends');
   // Route::get('friends', 'post')->name('friends');
     Route::get('friends', [App\Http\Controllers\FriendController::class, 'friends'])->name('friends.allfriends');
+    Route::post('friends/follow/{name}', [App\Http\Controllers\FriendController::class, 'post'])->name('friends.follow');
     
-    
+   // Route::post('friends/{name}','post');
 
     Route::post('friends/unfollow/{id}', [App\Http\Controllers\FriendController::class, 'unfollow'])->name('friends.unfollow');
 
-    Route::post('/friends',function(){
+    // Route::post('/friends',function(){
 
-        $follow =new Friend();
-        $follow->friend_user_id=request('friend_user_id');
-        $follow->friend_request_id=request('friend_request_id');
-        $follow->friend_status=request('friend_status');
-        $follow->save();
+    //     $follow =new Friend();
+    //     $follow->friend_user_id=request('friend_user_id');
+    //     $follow->friend_request_id=request('friend_request_id');
+    //     $follow->friend_status=request('friend_status');
+    //     $follow->save();
         
-        return redirect('friends')->with('follow', 'Started Following');
-    });
+    //     return redirect('friends')->with('follow',' Started Following');
+    // });
 
   //  Route::post('friends.allfriends', 'FriendController@crteate')->name('friends.allfriends');
  //  Route::get('friends', [App\Http\Controllers\FriendController::class, 'create'])->name('friends.allfriends');
@@ -120,7 +123,24 @@ Route::controller(FriendController::class)->group(function () {
 
 Route::controller(MessageController::class)->group(function () {
   
-    Route::get('/msg', 'msg');
+   // Route::view('/msg/chat', 'chat');
+    Route::get('/msg/chat/{id}', [App\Http\Controllers\MessageController::class, 'chat'])->name('message.select');
+
+    Route::get('/msg', [App\Http\Controllers\MessageController::class, 'msg'])->name('message.msg');
+
+    Route::post('/msg',function(){
+
+        $msg =new Message();
+        $msg->message_user_id=request('message_user_id');
+        $msg->message_friend_id=request('message_friend_id');
+        $msg->message_chat=request('message_chat');
+        $msg->message_status=request('message_status');
+        $msg->save();
+        
+        return redirect('msg');
+        // ->with('follow', 'Started Following')
+    });
+
 
 });
 

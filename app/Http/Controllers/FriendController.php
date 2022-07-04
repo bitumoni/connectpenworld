@@ -32,15 +32,48 @@ class FriendController extends Controller
 
      public function unfollow(Request $request,$id){
 
+        $unff = Friend::rightjoin('users','users.id' , '=','friends.friend_request_id' )->where('friends.friend_id','=',$id)->orderBy('friends.created_at','desc')->get('name')->except(Auth::id());
+
+        $uf1=$unff;
+        $a=substr($uf1, 9, 15);
+        $b=str_replace('"', '', $a);
+        $b=str_replace('}', '', $b);
+        $c=str_replace(']', '', $b);
+        
+
+        $uf2="You started unfollowing";
+        
+        $uf="$uf2 $c";
+       
+
+
         Friend::where('friend_id', $id)->delete();
 
-        return redirect('friends')->with('follow', 'Unfollow successfully!');
+        return redirect('friends')->with('follow', $uf);
 
      }
 
+   public function post(Request $request,$name){
+
+        $follow =new Friend();
+        $follow->friend_user_id=request('friend_user_id');
+        $follow->friend_request_id=request('friend_request_id');
+        $follow->friend_status=request('friend_status');
+        $follow->save();
+
+
+        $ff1=$name;
+        $ff2="You started following";
+        
+        $ff="$ff2 $ff1";
+        
+        
+        return redirect('friends')->with('follow',$ff);
+    }
+
 
     public function friends(){
-       
+    
         $following = Friend::rightjoin('users','users.id' , '=','friends.friend_request_id' )->where('friends.friend_user_id','=',Auth::id())->orderBy('friends.created_at','desc')->get()->except(Auth::id());
        
         $data = Friend::Where('friend_user_id', Auth::id())->orderBy('friends.created_at','desc')->get('friend_request_id');
@@ -92,7 +125,7 @@ class FriendController extends Controller
     //         ->where('friends.friend_status','')
     //         ->get(['users.*'])->except(Auth::id());
 
-
+        
         return view('friends.allfriends',['following'=>$following],['follow'=>$follow]);
     }
 
