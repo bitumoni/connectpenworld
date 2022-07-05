@@ -24,7 +24,7 @@
 
                         @foreach ($sendmsg as $rcv )
 
-                            @if($rcv->messahe_status=="Send")
+                            @if($rcv->message_status=="Send")
                         
                                 <form method="POST" action="{{ route('message.select',['id'=>$rcv->message_id]) }}">
                             @else

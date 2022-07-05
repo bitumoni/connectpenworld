@@ -26,7 +26,6 @@ class MessageController extends Controller
 
       $yoyo= preg_replace('~\D~', '', $yo);
 
-      //$sender=Message::rightjoin('users','users.id' , '=','messages.message_user_id')->where('messages.message_friend_id','=',$yoyo)->orderBy('messages.message_id','asc')->get();
 
 
       $sender= Message::
@@ -44,54 +43,23 @@ class MessageController extends Controller
 
       
 
-
-
-
-    //  $receiver=Message::rightjoin('users','users.id' , '=','messages.message_user_id')->where('messages.message_user_id','=',$yoyo)->orderBy('messages.message_id','asc')->get();
-
-      $receiver= Message::
+       $receiver= Message::
       
-      rightjoin("users",function($rjoin){
-        $rjoin->on("users.id","=",'messages.message_user_id')
-            ->on("users.id","=","messages.message_user_id");
-      })
+       rightjoin("users",function($rjoin){
+         $rjoin->on("users.id","=",'messages.message_user_id')
+             ->on("users.id","=","messages.message_user_id");
+       })
       
-      ->orderBy('messages.message_id','asc')
-      ->where(['messages.message_friend_id' => Auth::id(),
-      'messages.message_user_id' => $yoyo])
-
-      ->get();
-
-      
-      
-
-       // $yo = Message::Where('message_id', $id)->orderBy('messages.created_at','asc')->get('message_friend_id');
-      //  $receiver= User::where('users.id','=',$data)->get()->except(Auth::id());
-
-     // $receiver = Message::rightjoin('users','users.id' , '=','messages.message_user_id' )->where('messages.message_user_id','=',Auth::id())->orderBy('messages.created_at','desc')->get()->except(Auth::id());
-
-     //$receiver = Message::Where('message_friend_id', $yoyo)->orderBy('messages.message_id','desc')->get();
-   //     $receiver= User::whereIn('users.id',$data)->get()->except(Auth::id());
-    //$receiver = Message::rightjoin('users','users.id' , '=','messages.message_user_id' )->where('messages.message_user_id','=',Auth::id())->orderBy('messages.updated_at','asc')->get();
-
-   
-    // $sender = Message::rightjoin('users','users.id' , '=','messages.message_user_id' )->where('messages.message_user_id','=',Auth::id())->orderBy('messages.message_id','desc')->where('messages.message_friend_id','=',$yoyo)->get();
-     //   $receiver = Message::rightjoin('users','users.id' , '=','messages.message_user_id' )->where('message_friend_id', $yoyo )->orderBy('messages.created_at','asc')->get();
-        
-     //   $sender = Message::join('users','users.id' , '=','messages.message_user_id' )->where('messages.message_user_id','=',Auth::id())->orderBy('messages.created_at','asc')->get();
-    
-   //  $receiver= Message::rightjoin('users','users.id' , '=','messages.message_friend_id')->where('messages.message_friend_id','=',$yoyo)->orderBy('messages.message_id','asc')->where('messages.message_user_id','=',Auth::id())->where('messages.message_friend_id','=',$yoyo)->get();
-      // $sender=array($receiverr,$senderr)->get();
-     // $receiver=$receiverr->where('messages.message_friend_id','=',$yoyo);
-
-    // $go=$yoyo;
+       ->orderBy('messages.message_id','asc')
+       ->where(['messages.message_friend_id' => Auth::id(),
+       'messages.message_user_id' => $yoyo])
+       
+       ->get();
 
     
      
-        return view('message.chat',['receiver'=>$receiver],['sender'=>$sender]);
-        //
-       // ->with('follow', 'Unfollow successfully!')
-
+        return view('message.chat',['receiver'=>$receiver,'sender'=>$sender,'sendid'=>$yoyo]);
+       
      }
 
 

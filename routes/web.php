@@ -98,11 +98,14 @@ Route::controller(FriendController::class)->group(function () {
     //Route::get('/menu', 'menu');
   //  Route::get('/friends', 'friends');
   // Route::get('friends', 'post')->name('friends');
+
+  Route::get('/msg/send/{id}', [App\Http\Controllers\FriendController::class, 'sendmsg'])->name('message.send');
+
     Route::get('friends', [App\Http\Controllers\FriendController::class, 'friends'])->name('friends.allfriends');
     Route::post('friends/follow/{name}', [App\Http\Controllers\FriendController::class, 'post'])->name('friends.follow');
     
    // Route::post('friends/{name}','post');
-
+ 
     Route::post('friends/unfollow/{id}', [App\Http\Controllers\FriendController::class, 'unfollow'])->name('friends.unfollow');
 
     // Route::post('/friends',function(){
@@ -137,8 +140,7 @@ Route::controller(MessageController::class)->group(function () {
         $msg->message_status=request('message_status');
         $msg->save();
         
-        return redirect('msg');
-        // ->with('follow', 'Started Following')
+        return redirect('msg')->with('follow', 'Message Sent Successfully!');
     });
 
 

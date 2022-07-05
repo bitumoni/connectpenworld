@@ -52,8 +52,8 @@
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                               
                               <button  class="btn btn-primary me-md-2 " type="submit"> {{ $item->friend_status}}</button>
-                            
-                              <a href="{{ route('message.select',['id'=>$item->friend_id]) }}" class="btn btn-primary" type="button">Message</a>
+                              
+                              <a href="{{ route('message.send',['id'=>$item->friend_request_id]) }}" class="btn btn-primary" type="button">Message</a>
                             </div>
                           </div>
                           </a>
@@ -84,7 +84,7 @@
                          
                             <button class="btn btn-primary me-md-2 " type="submit">Follow</button>
                           
-                            <button class="btn btn-primary" type="button">Message</button>
+                            <a href="{{ route('message.send',['id'=>$bb->id]) }}" class="btn btn-primary" type="button">Message</a>
                           </div>
                         </div>
                         </a>

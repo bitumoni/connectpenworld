@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Friend;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -130,6 +131,8 @@ class FriendController extends Controller
     }
 
 
+ 
+
             /**
      * Get a validator for an incoming registration request.
      *
@@ -164,6 +167,48 @@ class FriendController extends Controller
            
         ]);
     }
+
+    public function sendmsg(Request $request,$id){
+
+       // $yo=Message::where('message_id','=', $id)->get('message_user_id');
+ 
+     //  $yoyo= preg_replace('~\D~', '', $yo);
+ 
+        
+ 
+       $sender= Message::
+       
+       rightjoin("users",function($rjoin){
+         $rjoin->on("users.id","=",'messages.message_user_id')
+             ->on("users.id","=","messages.message_user_id");
+       })
+       
+       ->orderBy('messages.message_id','asc')
+       ->where(['messages.message_friend_id' => $id,
+       'messages.message_user_id' => Auth::id()])
+ 
+       ->get();
+ 
+       
+ 
+        $receiver= Message::
+       
+        rightjoin("users",function($rjoin){
+          $rjoin->on("users.id","=",'messages.message_user_id')
+              ->on("users.id","=","messages.message_user_id");
+        })
+       
+        ->orderBy('messages.message_id','asc')
+        ->where(['messages.message_friend_id' => Auth::id(),
+        'messages.message_user_id' => $id])
+        
+        ->get();
+ 
+     
+      
+         return view('message.chat',['receiver'=>$receiver,'sender'=>$sender,'sendid'=>$id]);
+        
+      }
 
    // $update = Friend::where('friend_user_id', auth::id()) ->limit(1) ->update( [ 'name' => $data['name'], 'address' => $data['address'], 'email' => $data['email'], 'contactno' => $data['contactno'] ]); 
   
