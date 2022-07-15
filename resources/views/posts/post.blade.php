@@ -1,5 +1,50 @@
 @extends('layouts.app')
 
+
+@section('posts')
+
+<section class="py-5">
+   
+                <div class="container px-5 my-5">
+                    
+                    <div class="row gx-5">
+                         @foreach ($posts as $item )
+                        <div class="col-lg-4 mb-5">
+                           
+                            <div class="card h-100 shadow border-0">
+                                <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
+                                <div class="card-body p-4">
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ $item->post_category }}</div>
+                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">{{ $item->post_title }}</h5></a>
+                                   
+                                    <p class="card-text mb-0">{{ $item->post_content }}</p>
+                                </div>
+                                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                                    <div class="d-flex align-items-end justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
+                                            <div class="small">
+                                                <div class="fw-bold">{{ $item->name }} </div>
+                                                <div class="text-muted">{{ $item->created_at }}&middot; <!--6 min read--></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        @endforeach 
+                    </div>
+                    <!-- Call to action-->
+                    
+                </div>
+               
+            </section>
+            
+@endsection
+
+
+
 @section('content')
 
 <div class="container">
@@ -95,107 +140,5 @@
 </aside>
     </div>
 </div>
-
-
-
-         
 @endsection
 
-@section('showpost')
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4>How to Fetch data in Laravel 8</h4>
-                </div>
-                <div class="card-body">
-
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>user_id</th>
-                                <th>Content</th>
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>Keywords</th>
-                                <th>Language</th>
-                                <th>Privacy</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($posts as $item)
-                            <tr>
-                                <td>{{ $item->post_id }}</td>
-                                <td>{{ $item->post_user_id }}</td>
-                                <td>{{ $item->post_content }}</td>
-                                <td>{{ $item->post_title }}</td>
-                                <td>{{ $item->post_category }}</td>
-                                <td>{{ $item->post_keywords }}</td>
-                                <td>{{ $item->post_language }}</td>
-                                <td>{{ $item->post_privacy }}</td>
-                                <td>
-                                    <a href="" class="btn btn-primary btn-sm">Edit</a>
-                                </td>
-                                <td>
-                                    <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@endsection
-
-
-@section('news')
-
-<section class="py-5">
-   
-                <div class="container px-5 my-5">
-                    
-                    <div class="row gx-5">
-                         @foreach ($posts as $item )
-                        <div class="col-lg-4 mb-5">
-                           
-                            <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
-                                <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ $item->post_category }}</div>
-                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">{{ $item->post_title }}</h5></a>
-                                   
-                                    <p class="card-text mb-0">{{ $item->post_content }}</p>
-                                </div>
-                                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                                    <div class="d-flex align-items-end justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-                                            <div class="small">
-                                                <div class="fw-bold">{{ $item->name }} </div>
-                                                <div class="text-muted">{{ $item->created_at }}&middot; <!--6 min read--></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        @endforeach 
-                    </div>
-                    <!-- Call to action-->
-                    
-                </div>
-               
-            </section>
-            
-@endsection

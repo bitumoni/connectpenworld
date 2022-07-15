@@ -27,16 +27,21 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <!--<link href="css/styles.css" rel="stylesheet" />-->
-        
+
+         
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     <!-- {{ config('app.name', 'Laravel') }}-->
                     CONNECT PEN
                 </a>
+                <div class="navbar-brand input-group">
+                    <input class="form-control" type="text" placeholder="Type to search" aria-label="Type to search" aria-describedby="button-newsletter" />
+                    <button class="btn btn-outline-dark" id="button-newsletter" type="button">Search</button>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -69,12 +74,15 @@
                         <a class="navbar-brand bi-people-fill text-dark" href="/friends">Friends</a>
                             <li class="nav-item dropdown ">
                                 
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle px-5 " href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle px-5 " href="/profile" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
                                 
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/profile">
+                                        {{ __('View Profile') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -96,9 +104,18 @@
        
 
 
-        <main class="py-4">
-           
+        <main class="py-4 bg-dark">
+         
+            
             @yield('content')
+            @yield('uipost')
+            @yield('posts')
+            @yield('userprofile')
+            @yield('allfriends') 
+            @yield('msg')
+            @yield('chat')      
+                      
+        
         </main>
     </div>
 
@@ -111,6 +128,17 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>    
 
+        <script>
+            var myModal = document.getElementById('myModal')
+            var myInput = document.getElementById('myInput')
+
+                myModal.addEventListener('shown.bs.modal', function () {
+                myInput.focus()
+                    })
+        </script>
+        
+    
 
 </body>
+
 </html>

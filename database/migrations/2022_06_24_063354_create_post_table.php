@@ -13,9 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('post', function (Blueprint $table) {
-            $table->id();
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id('post_id');
+            $table->unsignedBigInteger('post_user_id');
+            $table->foreign('post_user_id')->references('id')->on('users');
+            
+            $table->string('post_content');
+            $table->string('post_title');
+            $table->string('post_category');
+            $table->string('post_keywords');
+            $table->string('post_language');
+            $table->string('post_privacy');
             $table->timestamps();
+            $table->string('status')->nullable();
         });
     }
 
@@ -26,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post');
+        Schema::dropIfExists('posts');
     }
 };
