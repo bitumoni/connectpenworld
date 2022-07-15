@@ -1,26 +1,5 @@
 @extends('layouts.app')
 
-@section('demochat')
-
-<div class="container">
-    <div class="row chat-row">
-        <div class="chat-content">
-            <ul>
-                
-            </ul>
-        </div>
-        <div class="chat-section">
-            <div class="chat-box">
-                <div class="chat-input bg-white" id="chatInput" contenteditable="">
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@endsection
-
 @section('chat')
 
        
@@ -41,67 +20,14 @@
                     <div class="card ">
                     <div class="card-body ">
 
-                        <ul id="messages" class="list-unstyled">
+                        <ul class="list-unstyled">
 
-                            <!--start chat-->
-                                  {{-- @if($users->count())
-                        @foreach($users as $user)
-                            <li class="chat-user-list
-                                @if($user->id == $friendInfo->id) active @endif">
-                                <a href="{{ route('message.conversation', $user->id) }}">
-                                    <div class="chat-image"> 
-                                        {{ $user->name }}
-                                     
-                                       <i class="fa fa-circle user-status-icon user-icon-{{ $user->id }}" title="away"></i>
-                                    </div>
+                            @foreach ($receiver as $msg )
 
-                                    <div class="chat-name font-weight-bold">
-                                        {{ $user->name }}
-                                    </div>
-                                </a>
-                            </li>
                             
-                        @endforeach
-                    @endif --}}
-                                <!--endchat-->
-                            <!-- <input class="form-control mb-2" name="message_chat" type="text"  /> -->
+                            
+                                <!-- <input class="form-control mb-2" name="message_chat" type="text"  /> -->
                                <!-- <button class="btn btn-primary me-md-2 " type="submit">Send</button> -->
-                          
-                             
-                              
-                               @foreach ($receiver as $msg )
-                              
-                              
-
-                               
-                            
-                            <li class="d-flex justify-content-between mb-4">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"
-                                class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
-                                <div class="card w-100">
-                                <div class="card-header d-flex justify-content-between p-3">
-                                    <p class="fw-bold mb-0"> {{ $msg->name }}  </p>
-                                    {{-- {{ $msg->chat_name }} --}}
-                                    <p class="text-muted small mb-0"><i class="far fa-clock"></i> 12 mins ago</p>
-                                </div>
-                                <div class="card-body">
-                                    <p class="mb-0">
-                                        {{ $msg->chat_message }}  {{ $msg->message_chat }}
-                                    </p>
-                                </div>
-                                </div>
-                            </li>
-                            
-
-
-
-                           
-
-                            @endforeach 
-                           
-                                   {{-- 
-                                    
-                           @foreach ($receiver as $msg )
                             
                             <li class="d-flex justify-content-between mb-4">
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp" alt="avatar"
@@ -119,11 +45,17 @@
                                 </div>
                             </li>
 
-                            @endforeach 
-                             --}}
+                            @endforeach
 
-                            {{-- @foreach ($sender as $send )
+                            @foreach ($sender as $send )
 
+                           <!-- @if($send->message_status=="Send")
+                        
+                            <form method="POST" action="{{ route('message.select',['id'=>$send->message_id]) }}">
+                        @else
+                            <form method="POST" action="{{ route('message.msg') }}">
+                        @endif
+                            -->
                        
                             <li class="d-flex justify-content-between mb-4">
                                 <div class="card w-100">
@@ -140,7 +72,7 @@
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
                                 class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
                             </li>
-                            @endforeach --}}
+                            @endforeach
 
 
                                 @if($sendid=='~\D~')
@@ -150,7 +82,7 @@
                                 @endif
 
                                 @csrf
-                                <input class="form-control mb-2" name="send_user_id" type="hidden"  value="{{ Auth::user()->id }}" />
+                                <input class="form-control mb-2" name="message_user_id" type="hidden"  value="{{ Auth::user()->id }}" />
                                
                                 <input class="form-control mb-2" name="message_friend_id" type="hidden"  value="{{$sendid}}" />
                                
@@ -159,7 +91,7 @@
                             <li class="bg-white mb-3">
                                 <div class="form-outline">
                                     <!-- <input id="chatInput" name="message_chat" autocomplete="off" />-->
-                               <textarea class="form-control" name="message_chat"  rows="4" required></textarea>
+                               <textarea class="form-control" name="message_chat" id="chatInput" rows="4" required></textarea>
                                 <!--<label class="form-label" for="textAreaExample2">Message</label>-->
                                 </div>
                             </li>

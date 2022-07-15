@@ -168,7 +168,7 @@ class FriendController extends Controller
         ]);
     }
 
-    public function sendmsg(Request $request,$id){
+ /*   public function sendmsg(Request $request,$id){
 
        // $yo=Message::where('message_id','=', $id)->get('message_user_id');
  
@@ -208,7 +208,7 @@ class FriendController extends Controller
       
          return view('message.chat',['receiver'=>$receiver,'sender'=>$sender,'sendid'=>$id]);
         
-      }
+      } */
 
    // $update = Friend::where('friend_user_id', auth::id()) ->limit(1) ->update( [ 'name' => $data['name'], 'address' => $data['address'], 'email' => $data['email'], 'contactno' => $data['contactno'] ]); 
   

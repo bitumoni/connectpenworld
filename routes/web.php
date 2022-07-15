@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\Chat;
 use App\Models\Post;
 use App\Models\Friend;
 use App\Models\Message;
+use App\Models\SendMessage;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
@@ -33,6 +36,23 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+//start socket
+/*
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('conversation/{userId}',[App\Http\Controllers\MessageController::class, 'conversation'])
+    ->name('message.conversation');
+Route::post('send-message', [App\Http\Controllers\MessageController::class, 'sendMessage'])
+    ->name('message.send-message');
+
+Route::post('send-group-message', [App\Http\Controllers\MessageController::class, 'sendGroupMessage'])
+    ->name('message.send-group-message');
+
+Route::resource('message-groups', 'MessageGroupController');
+*/
+
+//end socket
 
 
 // Route::controller(HomeController::class)->group(function () {
@@ -99,7 +119,7 @@ Route::controller(FriendController::class)->group(function () {
   //  Route::get('/friends', 'friends');
   // Route::get('friends', 'post')->name('friends');
 
-  Route::get('/msg/send/{id}', [App\Http\Controllers\FriendController::class, 'sendmsg'])->name('message.send');
+ 
 
     Route::get('friends', [App\Http\Controllers\FriendController::class, 'friends'])->name('friends.allfriends');
     Route::post('friends/follow/{name}', [App\Http\Controllers\FriendController::class, 'post'])->name('friends.follow');
@@ -125,8 +145,11 @@ Route::controller(FriendController::class)->group(function () {
 });
 
 Route::controller(MessageController::class)->group(function () {
+
+  
   
    // Route::view('/msg/chat', 'chat');
+   Route::get('/msg/chat/sms', [App\Http\Controllers\MessageController::class, 'sms'])->name('sms');
     Route::get('/msg/chat/{id}', [App\Http\Controllers\MessageController::class, 'chat'])->name('message.select');
 
     Route::get('/msg', [App\Http\Controllers\MessageController::class, 'msg'])->name('message.msg');
@@ -134,14 +157,62 @@ Route::controller(MessageController::class)->group(function () {
     Route::post('/msg',function(){
 
         $msg =new Message();
-        $msg->message_user_id=request('message_user_id');
+       // $msg->message_user_id=request('message_user_id');
         $msg->message_friend_id=request('message_friend_id');
         $msg->message_chat=request('message_chat');
         $msg->message_status=request('message_status');
         $msg->save();
+
         
-        return redirect('msg')->with('follow', 'Message Sent Successfully!');
+        $msgdata1 = Message::latest()->pluck('message_id')->first();
+        $msgid=(string)$msgdata1;
+        
+        
+      
+        $sendmsg =new SendMessage();
+        $sendmsg->send_user_id=request('send_user_id');
+        $sendmsg->send_message_id=$msgid;
+        $sendmsg->save();
+
+        $msgdata2 = Message::latest()->pluck('message_id')->first();
+        $chatmsgid=(string)$msgdata2;
+
+        $msgdata3 = Message::latest()->pluck('message_friend_id')->first();
+        $friendid=(string)$msgdata3;
+       
+
+        $msgdata4 = SendMessage::latest()->pluck('send_user_id')->first();
+        $userid=(string)$msgdata4;
+
+        $msgdata5 = Message::latest()->pluck('message_chat')->first();
+        $msgchat=(string)$msgdata5;
+
+        $msgdata6=User::where('users.id','=',$friendid)->pluck('name')->first();
+        $chatname=(string)$msgdata6;
+
+
+        $chat =new Chat();
+       
+        $chat->chat_message_id=$chatmsgid;
+        $chat->chat_user_id=$userid;
+        $chat->chat_friend_id=$friendid;
+        $chat->chat_name=$chatname;
+        $chat->chat_message=$msgchat;
+        $chat->chat_status=request('message_status');
+        $chat->save();
+
+
+        $msgdatax = Chat::latest()->pluck('chat_friend_id')->first();
+        $msgfrndid=(string)$msgdatax;
+
+        //return redirect('/msg/chat/{id}')->action(
+         //   [App\Http\Controllers\MessageController::class, 'chat'], ['id' => $msgfrndid]
+       // )->name('message.select');
+       // return redirect()->Route('/msg/chat/{id}', [App\Http\Controllers\MessageController::class, 'chat'])->name('message.select');
+        return Redirect(route('message.select',['id'=>$msgfrndid]))->with('follow', 'Message Sent Successfully!');
     });
+
+    
 
 
 });

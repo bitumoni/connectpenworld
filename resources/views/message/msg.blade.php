@@ -24,7 +24,7 @@
 
                         @foreach ($sendmsg as $rcv )
 
-                            @if($rcv->message_status=="Send")
+                            @if($rcv->message_status=="Sent")
                         
                                 <form method="POST" action="{{ route('message.select',['id'=>$rcv->message_id]) }}">
                             @else
@@ -32,30 +32,30 @@
                             @endif
 
                         <li class="p-2 border-bottom" style="background-color: #eee;">
-                            <a  href="{{ route('message.select',['id'=>$rcv->message_id]) }}" class="d-flex justify-content-between">
-                            <div class="d-flex flex-row">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar"
-                                class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
-                                <div class="pt-1">
-                                <p class="fw-bold mb-0">{{$rcv->name}}</p>
-                                <p class="small text-muted">{{ substr($rcv->message_chat, 0, 15); }}</p>
-                                </div>
-                            </div>
-                            <div class="pt-1">
-                                <p class="small text-muted mb-1">Just now</p>
-                                <span class="badge bg-danger float-end">1</span>
-                            </div>
+                            <a  href="{{ route('message.select',['id'=>$rcv->message_friend_id]) }}" class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar"
+                                        class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
+                                        <div class="pt-1">
+                                        <p class="fw-bold mb-0">{{$rcv->name}}</p>
+                                        <p class="small text-muted">{{ substr($rcv->message_chat, 0, 15); }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="pt-1">
+                                        <p class="small text-muted mb-1">Just now</p>
+                                        <span class="badge bg-danger float-end">1</span>
+                                    </div>
                             </a>
                         </li>
                                 </form>
                         @endforeach
-
+{{--
                         @foreach ($follow as $bb )
                         <form method="POST" action="{{ route('message.msg') }}">
                             @csrf
                             <input class="form-control mb-2" name="message_user_id" type="hidden"  value="{{ Auth::user()->id }}" />
                             <input class="form-control mb-2" name="message_friend_id" type="hidden"  value="{{ $bb->id }}" />
-                            <input class="form-control mb-2" name="message_status" type="hidden"  value="Send" />
+                            <input class="form-control mb-2" name="message_status" type="hidden"  value="Sent" />
                             <input class="form-control mb-2" name="message_chat" type="text"  />
                             <button class="btn btn-primary me-md-2 " type="submit">Send</button>
 
@@ -77,6 +77,7 @@
                         </li>
                     </form>
                     @endforeach
+                    --}}
                        
 
                         </ul>
